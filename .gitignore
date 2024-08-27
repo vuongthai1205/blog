@@ -1,0 +1,89 @@
+# General patterns
+back-end-dotnet/*.swp
+back-end-dotnet/*.*~
+back-end-dotnet/project.lock.json
+back-end-dotnet/.DS_Store
+back-end-dotnet/*.pyc
+back-end-dotnet/nupkg/
+
+# Visual Studio Code
+back-end-dotnet/.vscode/
+
+# Rider
+back-end-dotnet/.idea/
+
+# Visual Studio
+back-end-dotnet/.vs/
+
+# Fleet
+back-end-dotnet/.fleet/
+
+# Code Rush
+back-end-dotnet/.cr/
+
+# User-specific files
+back-end-dotnet/*.suo
+back-end-dotnet/*.user
+back-end-dotnet/*.userosscache
+back-end-dotnet/*.sln.docstates
+
+# Build results
+back-end-dotnet/[Dd]ebug/
+back-end-dotnet/[Dd]ebugPublic/
+back-end-dotnet/[Rr]elease/
+back-end-dotnet/[Rr]eleases/
+back-end-dotnet/x64/
+back-end-dotnet/x86/
+back-end-dotnet/build/
+back-end-dotnet/bld/
+back-end-dotnet/[Bb]in/
+back-end-dotnet/[Oo]bj/
+back-end-dotnet/[Oo]ut/
+
+# Log files for back-end-dotnet
+back-end-dotnet/msbuild.log
+back-end-dotnet/msbuild.err
+back-end-dotnet/msbuild.wrn
+
+
+# General patterns
+front-end/.DS_STORE
+front-end/node_modules
+front-end/scripts/flow/*/.flowconfig
+front-end/.flowconfig
+front-end/*~
+front-end/*.pyc
+front-end/.grunt
+front-end/_SpecRunner.html
+front-end/__benchmarks__
+front-end/build/
+front-end/remote-repo/
+front-end/coverage/
+front-end/.module-cache
+front-end/fixtures/dom/public/react-dom.js
+front-end/fixtures/dom/public/react.js
+front-end/test/the-files-to-test.generated.js
+front-end/*.log*
+front-end/chrome-user-data
+front-end/*.sublime-project
+front-end/*.sublime-workspace
+front-end/.idea
+front-end/*.iml
+front-end/.vscode
+front-end/*.swp
+front-end/*.swo
+
+# Packages and build files
+front-end/packages/react-devtools-core/dist
+front-end/packages/react-devtools-extensions/chrome/build
+front-end/packages/react-devtools-extensions/chrome/*.crx
+front-end/packages/react-devtools-extensions/chrome/*.pem
+front-end/packages/react-devtools-extensions/firefox/build
+front-end/packages/react-devtools-extensions/firefox/*.xpi
+front-end/packages/react-devtools-extensions/firefox/*.pem
+front-end/packages/react-devtools-extensions/shared/build
+front-end/packages/react-devtools-extensions/.tempUserDataDir
+front-end/packages/react-devtools-fusebox/dist
+front-end/packages/react-devtools-inline/dist
+front-end/packages/react-devtools-shell/dist
+front-end/packages/react-devtools-timeline/dist
