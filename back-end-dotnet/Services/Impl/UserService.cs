@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace back_end_dotnet;
 
@@ -15,6 +16,9 @@ public class UserService : IUserService
     public async Task<UserEntity> CreateUser(UserRequest userRequest)
     {
         UserEntity userEntity = _mapper.Map<UserEntity>(userRequest);
+        PasswordHasher<UserEntity> passwordHasher = new PasswordHasher<UserEntity>();
+        string passwordHash = passwordHasher.HashPassword(userEntity, userEntity.Password);
+        userEntity.Password = passwordHash;
         return await _repository.CreateUser(userEntity);
     }
 

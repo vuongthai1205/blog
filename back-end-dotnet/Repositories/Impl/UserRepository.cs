@@ -47,6 +47,16 @@ public class UserRepository : IUserRepository
         return entity;
     }
 
+    public async Task<UserEntity> GetUserEntityByUsername(string username)
+    {
+        var entity = await _blogContext.UserEntities.Where(b => b.Username == username).FirstOrDefaultAsync();
+        if (entity == null)
+        {
+            return null;
+        }
+        return entity;
+    }
+
     public async Task<bool> UpdateUser(UserEntity userEntity)
     {
         _blogContext.UserEntities.Update(userEntity);
