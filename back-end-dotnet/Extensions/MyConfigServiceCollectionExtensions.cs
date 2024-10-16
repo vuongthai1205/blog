@@ -21,6 +21,7 @@ public static class MyConfigServiceCollectionExtensions
 
         services.AddScoped<IPermissionRepository, PermissionRepository>();
         services.AddScoped<IPermissionService, PermissionService>();
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }
