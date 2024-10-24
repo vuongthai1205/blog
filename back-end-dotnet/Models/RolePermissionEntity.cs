@@ -7,7 +7,7 @@ public class RolePermissionEntity : EntityDefault
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int RolePermission { get; set;}
+    public int RolePermissionId { get; set;}
     public int PermissionEntityId { get; set; }
     public int RoleEntityId { get; set;}
     public required PermissionEntity PermissionEntity { get; set; }
