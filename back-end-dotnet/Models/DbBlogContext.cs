@@ -14,4 +14,17 @@ public class DbBlogContext : DbContext
             : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<UserEntity>()
+            .HasMany(e => e.RoleEntities)
+            .WithMany(e => e.UserEntities)
+            .UsingEntity<RoleUserEntity>();
+
+        modelBuilder.Entity<PermissionEntity>()
+            .HasMany(e => e.RoleEntities)
+            .WithMany(e => e.PermissionEntities)
+            .UsingEntity<RolePermissionEntity>();
+    }
 }
