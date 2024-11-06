@@ -7,4 +7,5 @@ public interface IUserService
     Task<UserEntity> GetUserEntity(int id);
     Task<bool> DeleteUser(int id);
     Task<bool> UpdateUser(int id, UserRequest userRequest);
+    Task<UserEntity> AssignRoleForUser(List<int> roles, UserEntity userEntity);
 }

@@ -33,7 +33,7 @@ public class UserRepository : IUserRepository
 
     public async Task<List<UserEntity>> GetAllAsync()
     {
-        var userEntities = await _blogContext.UserEntities.ToListAsync();
+        var userEntities = await _blogContext.UserEntities.Include(m => m.RoleEntities).ToListAsync();
         return userEntities;
     }
 

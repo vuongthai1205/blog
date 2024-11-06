@@ -6,11 +6,11 @@ public class OrganizationProfile : Profile
 {
     public OrganizationProfile()
     {
-        CreateMap<UserRequest, UserEntity>();
-        CreateMap<UserEntity, UserRequest>();
+        CreateMap<UserRequest, UserEntity>().ForMember(o => o.RoleEntities, b => b.MapFrom(z => z.Roles));
+        CreateMap<UserEntity, UserRequest>().ForMember(o => o.Roles, b => b.MapFrom(z => z.RoleEntities));
 
-        CreateMap<UserResponse, UserEntity>();
-        CreateMap<UserEntity, UserResponse>();
+        CreateMap<UserResponse, UserEntity>().ForMember(o => o.RoleEntities, b => b.MapFrom(z => z.Roles));
+        CreateMap<UserEntity, UserResponse>().ForMember(o => o.Roles, b => b.MapFrom(z => z.RoleEntities));
 
         CreateMap<RoleEntity, RoleRequest>();
         CreateMap<RoleRequest, RoleEntity>();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_end_dotnet;
 
@@ -11,9 +12,11 @@ using back_end_dotnet;
 namespace back_end_dotnet.Migrations
 {
     [DbContext(typeof(DbBlogContext))]
-    partial class DbBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20241104070458_update relationship for user role")]
+    partial class updaterelationshipforuserrole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace back_end_dotnet.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PermissionEntityRoleEntity", b =>
+                {
+                    b.Property<int>("PermissionEntitiesPermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleEntitiesRoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PermissionEntitiesPermissionId", "RoleEntitiesRoleId");
+
+                    b.HasIndex("RoleEntitiesRoleId");
+
+                    b.ToTable("PermissionEntityRoleEntity");
+                });
 
             modelBuilder.Entity("back_end_dotnet.PermissionEntity", b =>
                 {
@@ -193,6 +211,21 @@ namespace back_end_dotnet.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("user");
+                });
+
+            modelBuilder.Entity("PermissionEntityRoleEntity", b =>
+                {
+                    b.HasOne("back_end_dotnet.PermissionEntity", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionEntitiesPermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("back_end_dotnet.RoleEntity", null)
+                        .WithMany()
+                        .HasForeignKey("RoleEntitiesRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("back_end_dotnet.PostEntity", b =>

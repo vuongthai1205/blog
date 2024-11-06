@@ -7,15 +7,36 @@ namespace back_end_dotnet;
 public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
+    private readonly IRoleRepository _roleRepository;
     private readonly IMapper _mapper;
-    public UserService(IUserRepository userRepository, IMapper mapper)
+    public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository)
     {
         _repository = userRepository;
         _mapper = mapper;
+        _roleRepository = roleRepository;
     }
+
+    public async Task<UserEntity> AssignRoleForUser(List<int> roles, UserEntity userEntity)
+    {
+        var rolesAssign = roles;
+        foreach (var role in rolesAssign)
+        {
+            RoleEntity roleEntity = await _roleRepository.GetRoleEntity(role);
+            if (roleEntity != null)
+            {
+                userEntity.RoleEntities.Add(roleEntity);
+            }
+        }
+        return userEntity;
+    }
+
     public async Task<UserEntity> CreateUser(UserRequest userRequest)
     {
         UserEntity userEntity = _mapper.Map<UserEntity>(userRequest);
+        if (userRequest.RolesAssign.Count > 0)
+        {
+            userEntity = await AssignRoleForUser(userRequest.RolesAssign, userEntity);
+        }
         PasswordHasher<UserEntity> passwordHasher = new PasswordHasher<UserEntity>();
         string passwordHash = passwordHasher.HashPassword(userEntity, userEntity.Password);
         userEntity.Password = passwordHash;
@@ -47,9 +68,13 @@ public class UserService : IUserService
         {
             return false;
         }
-        else{
+        else
+        {
             _mapper.Map(userRequest, user);
-
+            if (userRequest.RolesAssign.Count > 0)
+            {
+                user = await AssignRoleForUser(userRequest.RolesAssign, user);
+            }
             return await _repository.UpdateUser(user);
         }
     }
