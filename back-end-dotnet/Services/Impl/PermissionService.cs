@@ -48,7 +48,7 @@ public class PermissionService : IPermissionService
     public async Task<bool> UpdatePermission(int id, PermissionRequest permissionRequest)
     {
         PermissionEntity permission = await _permissionRepository.Get(id);
-        _mapper.Map(permission, permissionRequest);
+        _mapper.Map(permissionRequest, permission);
         return await _permissionRepository.Update(permission);
     }
 }

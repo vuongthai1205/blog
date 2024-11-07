@@ -10,8 +10,8 @@ public class RoleUserEntity : EntityDefault
     public int RoleUserId { get; set; }
     public int UserEntityId { get; set; }
     public int RoleEntityId { get; set; }
-    public required UserEntity UserEntity { get; set; }
-    public required RoleEntity RoleEntity { get; set; }
+    public virtual required UserEntity UserEntity { get; set; }
+    public virtual required RoleEntity RoleEntity { get; set; }
     public DateTimeOffset CreateAt { get; set; }
     public DateTimeOffset UpdateAt { get; set; }
 }

@@ -25,7 +25,7 @@ public class RoleController : ControllerBase
         }
         else
         {
-            return Ok(_mapper.Map<List<RoleEntity>>(roleEntities));
+            return Ok(_mapper.Map<List<RoleResponse>>(roleEntities));
         }
     }
     [HttpPost]

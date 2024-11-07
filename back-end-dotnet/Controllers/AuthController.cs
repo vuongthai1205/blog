@@ -24,6 +24,5 @@ public class AuthController : ControllerBase
         else{
             return BadRequest("");
         }
-
     }
 }
