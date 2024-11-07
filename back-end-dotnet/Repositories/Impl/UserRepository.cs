@@ -33,13 +33,13 @@ public class UserRepository : IUserRepository
 
     public async Task<List<UserEntity>> GetAllAsync()
     {
-        var userEntities = await _blogContext.UserEntities.Include(m => m.RoleEntities).ToListAsync();
+        var userEntities = await _blogContext.UserEntities.Include(m => m.RoleEntities).ThenInclude(role => role.PermissionEntities).ToListAsync();
         return userEntities;
     }
 
     public async Task<UserEntity> GetUserEntity(int id)
     {
-        var entity = await _blogContext.UserEntities.FindAsync(id);
+        var entity = await _blogContext.UserEntities.Include(e => e.RoleEntities).ThenInclude(role => role.PermissionEntities).FirstOrDefaultAsync(e => e.UserId == id);
         if (entity == null)
         {
             return null;

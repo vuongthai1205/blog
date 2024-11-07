@@ -11,8 +11,8 @@ public class RoleEntity : EntityDefault
     public int RoleId { get; set; }
     public required string Name { get; set; }
     public string? Description { get; set; }
-    public List<UserEntity> UserEntities { get; set; } = new List<UserEntity>();
-    public List<PermissionEntity> PermissionEntities { get; set; } = new List<PermissionEntity>();
+    public virtual List<UserEntity> UserEntities { get; set; } = new List<UserEntity>();
+    public virtual List<PermissionEntity> PermissionEntities { get; set; } = new List<PermissionEntity>();
     public DateTimeOffset CreateAt { get; set; }
     public DateTimeOffset UpdateAt { get; set; }
 }

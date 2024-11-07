@@ -10,8 +10,8 @@ public class RolePermissionEntity : EntityDefault
     public int RolePermissionId { get; set;}
     public int PermissionEntityId { get; set; }
     public int RoleEntityId { get; set;}
-    public required PermissionEntity PermissionEntity { get; set; }
-    public required RoleEntity RoleEntity { get; set; }
+    public virtual required PermissionEntity PermissionEntity { get; set; }
+    public virtual required RoleEntity RoleEntity { get; set; }
     public DateTimeOffset CreateAt { get; set; }
     public DateTimeOffset UpdateAt { get; set; }
 }

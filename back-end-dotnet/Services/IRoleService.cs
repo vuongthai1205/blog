@@ -7,4 +7,5 @@ public interface IRoleService
     public Task<List<RoleEntity>> GetRoles();
     public Task<bool> DeleteRole(int id);
     public Task<RoleEntity> GetRoleEntity(int id);
+    public Task<RoleEntity> AssignPermissionForRole(List<int> permissions, RoleEntity roleEntity);
 }
