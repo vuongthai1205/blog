@@ -12,7 +12,7 @@ public class PostEntity : EntityDefault
     public required string Title { get; set; }
     public required string Content { get; set; }
     public required string Description { get; set; }
-    public UserEntity UserEntity { get; set; } = null;
+    public virtual UserEntity UserEntity { get; set; } = null;
     public int UserEntityId { get; set; }
     public DateTimeOffset CreateAt { get; set; }
     public DateTimeOffset UpdateAt { get; set; }

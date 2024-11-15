@@ -61,6 +61,7 @@ public class UserService : IUserService
         return await _repository.GetUserEntity(id);
     }
 
+
     public async Task<bool> UpdateUser(int id, UserRequest userRequest)
     {
         var user = await _repository.GetUserEntity(id);

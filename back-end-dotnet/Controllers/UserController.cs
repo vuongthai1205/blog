@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace back_end_dotnet;
 [ApiController]
@@ -6,11 +8,14 @@ namespace back_end_dotnet;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-    public UserController(IUserService userService)
+    private readonly IMapper _mapper;
+    public UserController(IUserService userService, IMapper mapper)
     {
         _userService = userService;
+        _mapper = mapper;
     }
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<List<UserResponse>>> GetAllUser()
     {
         return Ok(await _userService.GetAllAsync());
@@ -22,14 +27,14 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<UserEntity>> GetUserById(int id)
+    public async Task<ActionResult<UserResponse>> GetUserById(int id)
     {
         var user = await _userService.GetUserEntity(id);
         if (user == null)
         {
             return NotFound();
         }
-        return Ok(user);
+        return Ok(_mapper.Map<UserResponse>(user));
     }
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteUser(int id)

@@ -10,7 +10,7 @@ public class PermissionEntity
     public int PermissionId { get; set; }
     public required string Name { get; set; }
     public string? Description { get; set; }
-    public List<RoleEntity> RoleEntities { get; set; } = new List<RoleEntity>();
+    public virtual List<RoleEntity> RoleEntities { get; set; } = new List<RoleEntity>();
     public DateTimeOffset CreateAt { get; set; }
     public DateTimeOffset UpdateAt { get; set; }
 }

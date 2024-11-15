@@ -25,7 +25,7 @@ public class RoleRepository : IRoleRepository
 
     public async Task<List<RoleEntity>> GetAllAsync()
     {
-        var roleEntities = await _dbBlogContext.RoleEntities.ToListAsync();
+        var roleEntities = await _dbBlogContext.RoleEntities.Include(e => e.PermissionEntities).ToListAsync();
         return roleEntities;
     }
 

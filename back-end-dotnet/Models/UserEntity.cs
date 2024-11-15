@@ -10,8 +10,8 @@ public class UserEntity : EntityDefault
     public int UserId { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
-    public ICollection<PostEntity> PostEntities { get; } = new List<PostEntity>();
-    public List<RoleEntity> RoleEntities { get; set; } = new List<RoleEntity>();
+    public virtual ICollection<PostEntity> PostEntities { get; } = new List<PostEntity>();
+    public virtual List<RoleEntity> RoleEntities { get; set; } = new List<RoleEntity>();
     public DateTimeOffset CreateAt { get; set; } = default;
     public DateTimeOffset UpdateAt { get; set; } = default;
 }

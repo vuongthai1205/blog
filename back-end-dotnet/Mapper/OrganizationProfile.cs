@@ -14,8 +14,8 @@ public class OrganizationProfile : Profile
 
         CreateMap<RoleEntity, RoleRequest>();
         CreateMap<RoleRequest, RoleEntity>();
-        CreateMap<RoleResponse, RoleEntity>();
-        CreateMap<RoleEntity, RoleResponse>();
+        CreateMap<RoleResponse, RoleEntity>().ForMember(o => o.PermissionEntities, b => b.MapFrom(z => z.Permissions));
+        CreateMap<RoleEntity, RoleResponse>().ForMember(o => o.Permissions, b => b.MapFrom(z => z.PermissionEntities));
 
         CreateMap<PermissionEntity, PermissionRequest>();
         CreateMap<PermissionRequest, PermissionEntity>();

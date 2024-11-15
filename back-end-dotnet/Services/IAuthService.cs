@@ -2,5 +2,6 @@
 
 public interface IAuthService
 {
-    Task<bool> Login(string username, string password);
+    Task<string> Login(string username, string password);
+    Task<string> GenerateToken(UserEntity user);
 }
