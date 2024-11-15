@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_end_dotnet;
@@ -14,6 +15,7 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<List<UserResponse>>> GetAllUser()
     {
         return Ok(await _userService.GetAllAsync());
