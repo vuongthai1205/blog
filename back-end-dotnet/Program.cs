@@ -16,10 +16,22 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 );
 builder.Services.AddDbContext<DbBlogContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BlogDatabase")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000").AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                      });
+});
+
+
 builder.Services
     .AddConfig(builder.Configuration)
     .AddMyDependencyGroup();
-var configurationMapper = new MapperConfiguration(cfg => {
+var configurationMapper = new MapperConfiguration(cfg =>
+{
     cfg.AddProfile<OrganizationProfile>();
 });
 IMapper mapper = configurationMapper.CreateMapper();
@@ -27,23 +39,23 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddAuthentication(options =>
     {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(o =>
-{
-    o.TokenValidationParameters = new TokenValidationParameters
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(o =>
     {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey
-        (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = false,
-        ValidateIssuerSigningKey = true
-    };
-});
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = false,
+            ValidateIssuerSigningKey = true
+        };
+    });
 builder.Services.AddAuthorization();
 
 
@@ -61,6 +73,8 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<DbBlogContext>();
     db.Database.Migrate();
 }
+app.UseCors();
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
