@@ -1,11 +1,10 @@
-import './App.css';
-import Button from '@mui/material/Button';
+import 'styles/style.scss';
+import { router } from 'routes';
+import { RouterProvider } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 function App() {
-    return (
-        <div className="App">
-            <Button variant="contained">Hello world</Button>
-        </div>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;

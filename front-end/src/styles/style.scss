@@ -1,0 +1,63 @@
+@import 'styles/variables';
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: $black-color;
+}
+
+body {
+    font-family: $font-main;
+}
+
+.title {
+    font-size: $title-size-value;
+    font-weight: $font-weight-value-400;
+}
+
+.layout-middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-text {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 44px;
+    color: #4b4870;
+    font-weight: 700;
+    line-height: 1;
+    align-self: center;
+}
+
+.logo-text span {
+    color: #ff4c60;
+}
+
+.form-control label {
+    color: gray;
+    font-size: 16px;
+    font-weight: 400;
+}
+.wrapper-form-login{
+    padding: 30px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.link {
+    color: #1976d2;
+    text-decoration: underline;
+    font-size: 14px;
+}

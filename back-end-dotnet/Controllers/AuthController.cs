@@ -1,5 +1,4 @@
-﻿
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -25,20 +24,25 @@ public class AuthController : ControllerBase
         {
             return Ok(await _authService.Login(authRequest.UserName, authRequest.Password));
         }
-        else{
-            return BadRequest("");
+        else
+        {
+            return BadRequest("Invalid username or password.");
         }
     }
+
     [HttpGet("current-user")]
     [Authorize]
-    public ActionResult GetCurrentUser()
+    public async Task<ActionResult> GetCurrentUser()
     {
         string? userId = User.FindFirst(ClaimTypes.Name)?.Value;
         if (userId == null)
         {
-            return BadRequest();
+            return BadRequest("User ID not found.");
         }
-        // UserEntity userEntity = await _userService.GetUserEntity(user.Identity.Name);
+
+        // Uncomment and use the following line if you need to fetch user details
+        // UserEntity userEntity = await _userService.GetUserEntity(userId);
+
         return Ok(userId);
     }
 }
