@@ -14,7 +14,6 @@ import {
     InputAdornment,
     InputLabel,
     OutlinedInput,
-    styled,
     TextField,
     Typography,
 } from '@mui/material';
@@ -27,15 +26,6 @@ import { UserRequest } from 'models/UserRequest';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useHandleLogin } from 'hooks/useHandleLogin';
 import CloseIcon from '@mui/icons-material/Close';
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-}));
-
 function LoginPage() {
     const [userRequest, setUserRequest] = useState(new UserRequest('', ''));
     const [showPassword, setShowPassword] = useState(false);
@@ -58,15 +48,13 @@ function LoginPage() {
         setUserRequest((values) => ({ ...values, [name]: value }));
     };
 
-    const { isLogin, handleLogin, token, getCurrentUser } = useHandleLogin();
+    const { isLogin, handleLogin, token } = useHandleLogin();
     useEffect(() => {
         console.log("call usee")
         if (token) {
             setOpen(true); // Mở modal khi token có giá trị
         }
-        const token_access = getCurrentUser()
-        console.log(token_access)
-    }, [token]); // Theo dõi sự thay đổi của token
+    }, [token]);
     
     const submitLogin = async (e) => {
         e.preventDefault();
@@ -89,11 +77,13 @@ function LoginPage() {
                             id="my-input"
                             label="Username"
                             value={userRequest.username}
+                            required={true}
                         />
                     </FormControl>
                     <FormControl fullWidth={true} className="form-control">
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
+                            required={true}
                             id="outlined-adornment-password"
                             type={showPassword ? 'text' : 'password'}
                             name="password"
@@ -139,21 +129,10 @@ function LoginPage() {
                     </Link>
                 </p>
             </Paper>
-            <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <DialogTitle id="customized-dialog-title">
                     Modal title
                 </DialogTitle>
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={(theme) => ({
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: theme.palette.grey[500],
-                    })}>
-                    <CloseIcon />
-                </IconButton>
                 <DialogContent dividers>
                     <Typography gutterBottom>{token}</Typography>
                 </DialogContent>
@@ -162,7 +141,7 @@ function LoginPage() {
                         Save changes
                     </Button>
                 </DialogActions>
-            </BootstrapDialog>
+            </Dialog>
         </LayoutMiddle>
     );
 }
