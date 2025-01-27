@@ -12,7 +12,7 @@ export function useHandleLogin(){
     const handleLogin = async (userRequest) => {
         try {
             const response = await axios.post(`${baseURL}Auth/login`, userRequest);
-            const tokenData = response.data; // Đảm bảo bạn lấy đúng trường chứa token
+            const tokenData = response.data.accessToken; // Đảm bảo bạn lấy đúng trường chứa token
             setCookie('token_access', tokenData, { path: '/' });
             setToken(tokenData);
             setIsLogin(true);
@@ -22,8 +22,5 @@ export function useHandleLogin(){
         }
     };
 
-    const getCurrentUser = () => {
-        return token
-    }
-    return {isLogin, handleLogin, getCurrentUser, token}
+    return {isLogin, handleLogin, token}
 }

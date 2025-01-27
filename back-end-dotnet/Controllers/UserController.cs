@@ -9,10 +9,12 @@ public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
-    public UserController(IUserService userService, IMapper mapper)
+    private readonly ILogger _logger;
+    public UserController(IUserService userService, IMapper mapper, ILogger<UserController> logger)
     {
         _userService = userService;
         _mapper = mapper;
+        _logger = logger;
     }
     [HttpGet]
     [Authorize]
@@ -29,6 +31,8 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<UserResponse>> GetUserById(int id)
     {
+        _logger.LogInformation("{DT}: Get User By Id {id}", DateTime.UtcNow.ToLongTimeString(),
+            id);
         var user = await _userService.GetUserEntity(id);
         if (user == null)
         {

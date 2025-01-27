@@ -48,26 +48,25 @@ public class AuthService : IAuthService
         };
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        var jwtToken = tokenHandler.WriteToken(token);
         var stringToken = tokenHandler.WriteToken(token);
 
         return Task.FromResult(stringToken);
     }
 
-    public async Task<string> Login(string username, string password)
+    public async Task<AuthResponse> Login(string username, string password)
     {
         UserEntity userEntity = await _userRepository.GetUserEntityByUsername(username);
         if (userEntity == null)
         {
-            return null;
+            return new AuthResponse { AccessToken = null };
         }
         else
         {
-            PasswordHasher<UserEntity> passwordHash = new PasswordHasher<UserEntity>();
+            var passwordHash = new PasswordHasher<UserEntity>();
             PasswordVerificationResult passwordVerificationResult = passwordHash.VerifyHashedPassword(userEntity, userEntity.Password, password);
             string token = await GenerateToken(userEntity);
 
-            return passwordVerificationResult == PasswordVerificationResult.Success ? token : null;
+            return passwordVerificationResult == PasswordVerificationResult.Success ? new AuthResponse { AccessToken = token } : new AuthResponse { AccessToken = null };
         }
     }
 }

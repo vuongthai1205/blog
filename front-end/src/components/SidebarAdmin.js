@@ -17,31 +17,29 @@ function SidebarAdmin({ open, toggleDrawer }) {
     const theme = useTheme();
 
     return (
-        <>
-            <Drawer
-                open={open}
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-                  }}
-                onClose={toggleDrawer(false)}
-                variant="persistent"
-                anchor="left">
-                <DrawerHeader>
-                    <IconButton onClick={toggleDrawer(false)}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <ul>
-                    <li>1312</li>
-                    <li>1312</li>
-                    <li>1312</li>
-                    <li>1312</li>
-                </ul>
-            </Drawer>
-        </>
+        <Drawer
+            open={open}
+            sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+            }}
+            onClose={toggleDrawer(false)}
+            variant="persistent"
+            anchor="left">
+            <DrawerHeader>
+                <IconButton onClick={toggleDrawer(false)}>
+                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <ul>
+                <li>1312</li>
+                <li>1312</li>
+                <li>1312</li>
+                <li>1312</li>
+            </ul>
+        </Drawer>
     );
 }
 

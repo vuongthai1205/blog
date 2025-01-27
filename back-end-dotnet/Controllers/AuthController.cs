@@ -22,7 +22,8 @@ public class AuthController : ControllerBase
     {
         if (await _authService.Login(authRequest.UserName, authRequest.Password) is not null)
         {
-            return Ok(await _authService.Login(authRequest.UserName, authRequest.Password));
+            AuthResponse token = await _authService.Login(authRequest.UserName, authRequest.Password);
+            return Ok(token);
         }
         else
         {
@@ -39,9 +40,7 @@ public class AuthController : ControllerBase
         {
             return BadRequest("User ID not found.");
         }
-
-        // Uncomment and use the following line if you need to fetch user details
-        // UserEntity userEntity = await _userService.GetUserEntity(userId);
+        // UserEntity user = await _userService.Get(userId);
 
         return Ok(userId);
     }
